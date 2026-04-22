@@ -225,7 +225,7 @@ function kirim() {
   tambahPesan(text);
   
   // Kirim ke Telegram
-  const url = `https://api.telegram.org/bot8566904522:AAEWFB-1fbvjnJbEAQ7E0FUVCDnbRzrVFBU/sendMessage?chat_id==6297122078&text=${encodeURIComponent(text)}`;
+  const url = `https://api.telegram.org/bot8566904522:AAEWFB-1fbvjnJbEAQ7E0FUVCDnbRzrVFBU/sendMessage?chat_id=6297122078&text=${encodeURIComponent(text)}`;
   
   fetch(url)
     .then(response => response.json())
